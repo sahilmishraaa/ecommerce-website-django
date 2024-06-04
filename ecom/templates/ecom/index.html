@@ -1,0 +1,63 @@
+{% extends 'ecom/base.html' %}
+{% load static %}
+{% block title %} home {% endblock %}
+{% block body %}
+    <section>
+       <section class="flex justify-center bg-neutral-100">
+        <div>
+            <img class="w-96" src="{% static './img/form.jpg' %}" alt="">
+        </div>
+        <div class="flex items-center justify-center flex-col w-96 bg-neutral-200">
+            <h1 class="text-5xl">Officials</h1>
+            <h2 class="text-3xl">Absolute Formal Look</h2>
+            <br>
+            <span class="text-xl cursor-pointer hover:underline"> <a href="/collection/#men">Shop Men</a></span>
+        </div>
+       </section> 
+
+       <section class="flex justify-center bg-orange-50">
+        <div class="flex items-center justify-center flex-col w-96 bg-orange-100">
+            <h1 class="text-5xl">Traditionals</h1>
+            <h2 class="text-3xl">Patakha Kudi Lagdi!</h2>
+            <br>
+            <span class="text-xl cursor-pointer hover:underline"><a href="/collection/#women">Shop Women</a></span>
+        </div>
+        <div>
+            <img class="w-96 h-96" src="{% static './img/trad1.jpg' %}" alt="">
+        </div>
+       </section>
+    </section>   
+   
+    <section class="bg-fuchsia-50">
+        <br>
+        <br>
+        <div class=" mb-10 text-center text-5xl">Accessories</div>
+        <section class="flex justify-around">
+            <section class="mx-5 p-3">
+                <div class="text-center  text-2xl">Watches</div>
+                <img class="w-80 h-80" src="{% static './img/watch.jpg' %}" alt="">
+            </section>
+            <section class="mx-5 p-3">
+                <div class="text-center  text-2xl">Glasses</div>
+                <img class="w-80 h-80" src="{% static './img/glass.jpg' %}" alt="">
+                
+            </section>
+            <section class="mx-5 p-3">
+                <div class="text-center  text-2xl">Belts</div>
+                <img class="w-80 h-80" src="{% static './img/belt.jpg' %}" alt="">
+
+            </section>
+        </section>
+        <br>
+        <div class="text-center text-3xl hover:underline"><a href="/collection/#acc"> And much more</a></div>
+        <br>
+        <br>
+    </section>
+
+    <section class="bg-black flex justify-center">
+        <br>
+        <br>
+        <section><img class="p-8 mx-16 w-96 cursor-pointer" src="{% static './img/sale.png' %}" alt=""></section>
+        <section><a href="/lookbook/"><img class="p-8 mx-16 w-96 cursor-pointer" src="{% static './img/Lookbook.png' %}" alt=""></a></section>
+    </section>
+    {% endblock %}

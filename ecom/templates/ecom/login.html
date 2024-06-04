@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mooli&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="flex m">   
+        <div class="w-2/3">
+            <img class="" src="{% static './img/loginbg.jpg' %}" alt="">
+        </div>
+        <div class="bg-black w-1/3 text-white flex justify-center flex-col items-center pb-12">
+            <div class="my-12">
+                <a href="/"><img class="w-64 items-center" src="{% static './img/logo.png' %}" alt=""></a>
+            </div>
+            <div>
+                <h1 class="text-2xl mb-12" id="welcome">Welcome to Sajda</h1>
+            </div>
+            
+            <form class="flex flex-col" id="loginForm" action="/loginmanage/" method="post">
+                {% csrf_token %}
+                <label class="" for="loginusername">Username</label>
+                <input class="mb-8 bg-black border-b w-72" type="text" id="loginusername" name="loginusername" required>
+                <label class="" for="loginpassword">Password</label>
+                <input class="bg-black border-b " type="password" id="loginpassword" name="loginpassword" required>
+                <input class="bg-gray-400 w-1/2 self-center rounded-lg p-1.5 my-6 hover:bg-gray-500" type="submit" value="Login">
+            </form>
+            
+            <div>
+                New Here? <a class="hover:underline px-1" href="/signup/">Create Account!</a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

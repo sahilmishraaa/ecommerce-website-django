@@ -1,0 +1,45 @@
+{% extends 'ecom/base.html' %}
+{% load static %}
+
+{% block title %} Collection {% endblock %}
+{% block body %}
+<section class="woman">
+    <div id="women" class="bg-gray-200 text-center text-3xl p-8">Women</div>
+    <section class="flex flex-wrap justify-center">
+        {% for i in womenColl %}
+        <div class="h-96 p-6 my-12 ">
+            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
+            <span>{{i.name}}</span>
+            <div>${{i.price}}</div>
+
+        </div>
+        {% endfor %}
+    </section>
+
+    <div id="men" class="mt-32 bg-gray-200 text-center text-3xl p-8">Men</div>
+    <section class="flex flex-wrap justify-center">
+        {% for i in menColl %}
+        <div class="h-96 p-6 my-12 ">
+            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
+            <span>{{i.name}}</span>
+            <div>${{i.price}}</div>
+            
+        </div>
+        {% endfor %}
+    </section>
+
+    <div id="acc" class="mt-32 bg-gray-200 text-center text-3xl p-8">Accessories</div>
+    <section class="flex flex-wrap justify-center">
+        {% for i in accColl %}
+        <div class="h-96 p-6 my-12 ">
+            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
+            <span>{{i.name}}</span>
+            <div>${{i.price}}</div>
+            
+        </div>
+        {% endfor %}
+    </section>
+</section>
+<br>
+<br>
+{% endblock %}

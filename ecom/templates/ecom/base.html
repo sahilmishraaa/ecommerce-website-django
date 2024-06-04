@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mooli&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    {% block css %} {% endblock %}
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="flex justify-around text-2xl bg-black text-white ">
+        <ul>
+            <li><a href="/"><img class="w-40 items-center" src="{% static '/img/logo.png'%}" alt=""></a></li>
+        </ul>
+        <ul class="flex px-6 mr-12 items-center">
+            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/">Home</a></li>
+            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/collection/">Collection</a></li>
+            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/lookbook/">Lookbook</a></li>
+            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/customercare/">Customer Care</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+            <ul class="flex justify-center">
+                <li class="text-center px-5 my-6">Welcome, {{request.user}}</li>
+                <li class="hover:text-gray-200 hover:underline cursor-pointer px-5 py-6"><a href="/logoutmanage/">Log Out</a></li>
+                <li class="hover:text-gray-200 hover:underline cursor-pointer px-5 py-6"><a href="/cart/">Cart - </a></li>
+            </ul>
+        {% else %}
+            <ul class="flex items-center">
+                <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/loginpg/">Log In</a></li>
+                <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6">Cart - </li>
+            </ul>
+        {% endif %}
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-gray-600 flex justify-evenly font-thin text-gray-200 p-10">
+        <div><img class="w-52" src="{% static './img/logo.png' %}" alt=""></div>
+        <hr class="rotate-90 border border-gray-400 mt-20 w-40">
+        <div>
+            <ul class="text-2xl">
+                <li class="mb-3"><a href="/customercare/">CUSTOMER CARE</a></li>
+                <ul>
+                    <li class="text-lg"><a href="/customercare/">Shipping Policy</a></li>
+                    <li class="text-lg"><a href="/customercare/">Contact Us</a></li>
+                    <li class="text-lg"><a href="/customercare/">About Us</a></li>
+                    <li class="text-lg"><a href="/customercare/">FAQs</a></li>
+                </ul>
+            </ul>
+        </div>
+        <hr class="rotate-90 border border-gray-400 mt-20 w-40">
+        <div>
+            <ul>
+                <li class="text-2xl mx-2 mb-3">STAY CONNECTED</li>
+                <li class="flex">
+                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/ig.png' %} " alt="">
+                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/x.png' %} " alt="">
+                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/FB.png' %} " alt="">
+                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/pin.png' %} " alt="">
+                </li>
+            </ul>
+        </div>
+        <div></div>
+    </footer>
+    <div class="bg-black text-white text-center text-lg p-4">
+        © 2035 by Sajda.
+    </div>
+
+
+
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

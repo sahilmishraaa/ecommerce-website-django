@@ -1,0 +1,41 @@
+{% extends 'ecom/base.html' %}
+{% load static %}
+
+{% block title %} Buy Product {% endblock %}
+
+{% block body %}
+
+
+    <section class="flex m-44">
+        <div class="ml-40 w-1/2 mr-5">
+            <a class="text-3xl mb-5" href="/collection/">← Collection</a>
+            <img id="buyimg" class="mt-5 w-2/3" src="/media/{{product.image}}" alt="">
+            <h1 class="text-2xl my-2">Product Description</h1>
+            <p class="my-2">{{product.description}}</p>
+        </div>
+        <div class="m-2 w-1/2">
+            <h1 class="text-5xl">{{product.name}}</h1>
+            <hr>
+            <h1 class="text-xl">Price : ${{product.price}}</h1>
+            <br>
+            <div class="py-5">
+                <label class="pr-10" for="quantity">Size :</label>
+                <br>
+                <input class="border rounded-md border-black pl-6" placeholder="Select " type="number" id="quantity"
+                    name="quantity" min="28" max="40" required>
+            </div>
+            <div class="py-5">
+                <label class="pr-5" value="1" for="quantityy">Quantity :</label>
+                <br>
+                <input class="border rounded-md pl-6 border-black" placeholder="Select " type="number" id="quantityy"
+                    name="quantityy" min="1" max="5">
+            <div>
+                <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart">
+                    <button class="py-2 hover:bg-green-200 bg-green-100 text-center px-10 my-2 w-52">Add to Cart</button>
+                </a>
+                <button class="py-2 hover:bg-gray-800 bg-gray-700 text-white my-3 px-20 w-52">Buy Now</button>
+            </div>
+        
+    </section>
+    
+    {% endblock %}

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*
+{
+    font-family: "Teko", sans-serif;
+}
+#welcome
+{
+    font-family: "Dancing Script", cursive;
+}
