@@ -304,4 +304,16 @@ def healthcare(request):
             "wellness": [],
         })
 
+@login_required(login_url='/loginpg/')
+def order_details(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    address = Address.objects.filter(user=request.user).last()
+    payment = Payment.objects.filter(order=order).first()
+    
+    return render(request, 'ecom/orderdetails.html', {
+        'order': order,
+        'address': address,
+        'payment': payment
+    })
+
 
