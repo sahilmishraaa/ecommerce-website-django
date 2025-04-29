@@ -1,102 +1,158 @@
 {% extends 'ecom/base.html' %}
 {% load static %}
-{% block title %} home {% endblock %}
+{% block title %}Sajda - Fashion & Healthcare{% endblock %}
 {% block body %}
-    <section>
-       <section class="flex justify-center bg-neutral-100">
-        <div>
-            <img class="w-96" src="{% static './img/form.jpg' %}" alt="">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] text-white py-20">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-5xl font-bold mb-6">Style Meets Wellness</h1>
+            <p class="text-xl mb-8">Your trusted destination for fashion and healthcare essentials</p>
+            <div class="flex justify-center gap-4">
+                <a href="#fashion" class="bg-white text-[#1B365D] px-8 py-3 rounded-full hover:bg-gray-100">Shop Fashion</a>
+                <a href="#healthcare" class="border-2 border-white px-8 py-3 rounded-full hover:bg-white hover:text-[#1B365D]">Shop Healthcare</a>
+            </div>
         </div>
-        <div class="flex items-center justify-center flex-col w-96 bg-neutral-200">
-            <h1 class="text-5xl">Officials</h1>
-            <h2 class="text-3xl">Absolute Formal Look</h2>
-            <br>
-            <span class="text-xl cursor-pointer hover:underline"> <a href="/collection/#men">Shop Men</a></span>
-        </div>
-       </section> 
+    </div>
 
-       <section class="flex justify-center bg-orange-50">
-        <div class="flex items-center justify-center flex-col w-96 bg-orange-100">
-            <h1 class="text-5xl">Traditionals</h1>
-            <h2 class="text-3xl">Patakha Kudi Lagdi!</h2>
-            <br>
-            <span class="text-xl cursor-pointer hover:underline"><a href="/collection/#women">Shop Women</a></span>
+    <!-- Fashion Section -->
+    <section id="fashion" class="py-16 bg-[#F5F7FA]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl text-center text-[#1B365D] mb-12">Fashion Collection</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/form.jpg' %}" alt="Men's Collection" class="w-full transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">Men's Collection</h3>
+                        <a href="/collection/#men" class="text-[#4FA49D] hover:underline">Shop Now →</a>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/trad1.jpg' %}" alt="Women's Collection" class="w-full transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">Women's Collection</h3>
+                        <a href="/collection/#women" class="text-[#4FA49D] hover:underline">Shop Now →</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <img class="w-96 h-96" src="{% static './img/trad1.jpg' %}" alt="">
-        </div>
-       </section>
-    </section>   
-   
-    <section class="bg-fuchsia-50">
-        <br>
-        <br>
-        <div class=" mb-10 text-center text-5xl">Accessories</div>
-        <section class="flex justify-around">
-            <section class="mx-5 p-3">
-                <div class="text-center  text-2xl">Watches</div>
-                <img class="w-80 h-80" src="{% static './img/watch.jpg' %}" alt="">
-            </section>
-            <section class="mx-5 p-3">
-                <div class="text-center  text-2xl">Glasses</div>
-                <img class="w-80 h-80" src="{% static './img/glass.jpg' %}" alt="">
-                
-            </section>
-            <section class="mx-5 p-3">
-                <div class="text-center  text-2xl">Belts</div>
-                <img class="w-80 h-80" src="{% static './img/belt.jpg' %}" alt="">
-
-            </section>
-        </section>
-        <br>
-        <div class="text-center text-3xl hover:underline"><a href="/collection/#acc"> And much more</a></div>
-        <br>
-        <br>
     </section>
 
-    <br>
-    <br>
-    <h2 class="text-center  text-5xl">" Testimonials "</h2>
+    <!-- Healthcare Section -->
+    <section id="healthcare" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl text-center text-[#1B365D] mb-12">Healthcare Products</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- OTC Medicines Card -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/medicine-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
+                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">💊</div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">OTC Medicines</h3>
+                        <p class="text-gray-200 mb-6">Quality medicines for common ailments, carefully curated for your wellness</p>
+                        <a href="{% url 'medicine' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
+                            View Products
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
 
-    <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
-          <div class="flex flex-wrap -m-4">
-            <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div class="h-full text-center">
-                <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://th.bing.com/th/id/OIP.hlF2FrpLR6K40uxAqktwJwHaHa?rs=1&pid=ImgDetMain">
-                <p class="leading-relaxed">We are quite happy with your team’s work in the content creation process of our listing content, A+ images, and videos. The work done was quite creative which wasn't very easy for someone who does not know much about this category. We hope to continue working the same way in the near future too. But for now, it's really good going.</p>
-                <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">HOLDEN CAULFIELD</h2>
-                <p class="text-gray-500">Senior Product Designer</p>
-              </div>
+                <!-- First Aid Card -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/firstaid-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
+                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🏥</div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">First Aid</h3>
+                        <p class="text-gray-200 mb-6">Essential first aid supplies for emergency preparedness and care</p>
+                        <a href="{% url 'firstaid' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
+                            View Products
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Wellness Card -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/wellness-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
+                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🌿</div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Wellness</h3>
+                        <p class="text-gray-200 mb-6">Natural supplements and vitamins for holistic health</p>
+                        <a href="{% url 'wellness' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
+                            View Products
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div class="h-full text-center">
-                <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://i.pinimg.com/originals/42/0d/5d/420d5d9e4713b2a665596c1ad71f0f23.jpg">
-                <p class="leading-relaxed">Once again, your hard work does not go unnoticed, and I genuinely appreciate your dedication. All the team members did their best to deliver quality descriptions for the products. Really impressed with the quality and timely work.</p>
-                <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">ALPER KAMU</h2>
-                <p class="text-gray-500">UI Develeoper</p>
-              </div>
-            </div>
-            <div class="lg:w-1/3 lg:mb-0 p-4">
-              <div class="h-full text-center">
-                <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://th.bing.com/th/id/OIP.F0nklFVAFWthF89OT3DsXgAAAA?w=474&h=474&rs=1&pid=ImgDetMain">
-                <p class="leading-relaxed">Just wanted to thank you for all the great work your team has delivered. I really appreciate the quick turnaround and clear communication that you have demonstrated consistently over the last few months.</p>
-                <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">HENRY LETHAM</h2>
-                <p class="text-gray-500">CTO</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
-
-
-    <section class="bg-black flex justify-center">
-        <br>
-        <br>
-        <section><a href="/collection/"><img class="p-8 mx-16 w-96 cursor-pointer" src="{% static './img/sale.png' %}" alt=""></a></section>
-        <section><a href="/lookbook/"><img class="p-8 mx-16 w-96 cursor-pointer" src="{% static './img/Lookbook.png' %}" alt=""></a></section>
     </section>
-    {% endblock %}
+
+    <!-- Trust Badges -->
+    <section class="bg-[#F5F7FA] py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-[#4FA49D] text-4xl mb-4">✓</div>
+                    <h3 class="font-semibold">Certified Products</h3>
+                    <p class="text-gray-600">Licensed healthcare items</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-[#4FA49D] text-4xl mb-4">🚚</div>
+                    <h3 class="font-semibold">Fast Delivery</h3>
+                    <p class="text-gray-600">Quick & secure shipping</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-[#4FA49D] text-4xl mb-4">💯</div>
+                    <h3 class="font-semibold">Quality Assured</h3>
+                    <p class="text-gray-600">Premium products only</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-[#4FA49D] text-4xl mb-4">📞</div>
+                    <h3 class="font-semibold">24/7 Support</h3>
+                    <p class="text-gray-600">Always here to help</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl text-center text-[#1B365D] mb-12">Customer Reviews</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
+                    <div class="flex flex-col items-center">
+                        <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 
+                             src="https://th.bing.com/th/id/OIP.hlF2FrpLR6K40uxAqktwJwHaHa?rs=1&pid=ImgDetMain">
+                        <p class="text-gray-600 text-center mb-6">We are quite happy with your team's work in the content creation process. The work done was quite creative which wasn't very easy for someone who does not know much about this category.</p>
+                        <div class="h-0.5 w-12 bg-[#4FA49D] mb-4"></div>
+                        <h3 class="text-[#1B365D] font-medium text-lg">HOLDEN CAULFIELD</h3>
+                        <p class="text-gray-500">Senior Product Designer</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
+                    <div class="flex flex-col items-center">
+                        <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 
+                             src="https://i.pinimg.com/originals/42/0d/5d/420d5d9e4713b2a665596c1ad71f0f23.jpg">
+                        <p class="text-gray-600 text-center mb-6">Once again, your hard work does not go unnoticed, and I genuinely appreciate your dedication. Really impressed with the quality and timely work.</p>
+                        <div class="h-0.5 w-12 bg-[#4FA49D] mb-4"></div>
+                        <h3 class="text-[#1B365D] font-medium text-lg">ALPER KAMU</h3>
+                        <p class="text-gray-500">UI Developer</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
+                    <div class="flex flex-col items-center">
+                        <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 
+                             src="https://th.bing.com/th/id/OIP.F0nklFVAFWthF89OT3DsXgAAAA?w=474&h=474&rs=1&pid=ImgDetMain">
+                        <p class="text-gray-600 text-center mb-6">Just wanted to thank you for all the great work your team has delivered. I really appreciate the quick turnaround and clear communication.</p>
+                        <div class="h-0.5 w-12 bg-[#4FA49D] mb-4"></div>
+                        <h3 class="text-[#1B365D] font-medium text-lg">HENRY LETHAM</h3>
+                        <p class="text-gray-500">CTO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

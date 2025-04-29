@@ -1,0 +1,42 @@
+{% extends 'ecom/base.html' %}
+{% load static %}
+
+{% block title %} First Aid Supplies {% endblock %}
+
+{% block body %}
+<div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] py-12">
+    <h1 class="text-4xl text-center text-white mb-4">First Aid Supplies</h1>
+    <p class="text-center text-gray-100">Essential first aid and medical supplies</p>
+</div>
+
+<section class="py-16 bg-[#F5F7FA]">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl text-[#1B365D] mb-8 pl-4 border-l-4 border-[#4FA49D]">First Aid Products</h2>
+        {% if firstAid %}
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in firstAid %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                <a href="{% url 'product' product.id %}">
+                    <img class="w-full h-64 object-cover" src="/media/{{product.image}}" alt="{{product.name}}">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-[#1B365D]">{{product.name}}</h3>
+                        <p class="text-gray-600 text-sm mb-2">{{product.description|truncatechars:100}}</p>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-[#4FA49D] font-bold">${{product.price}}</span>
+                            <button class="bg-[#1B365D] text-white px-4 py-2 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-8">
+            <p class="text-gray-600">No first aid products available at the moment.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

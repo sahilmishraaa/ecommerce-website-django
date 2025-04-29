@@ -7,25 +7,40 @@
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{% static './css/style.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Mooli&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:ital,wght@0,200..700;1,200..700&family=Josefin+Slab&family=Lora:ital@1&display=swap" rel="stylesheet">
+
     {% block css %} {% endblock %}
 </head>
 <body>
     <!-- NAV -->
-    <nav class="flex justify-around text-2xl bg-black text-white ">
+    <nav class="flex justify-around text-lg bg-[#1B365D] text-white shadow-lg">
         <ul>
-            <li><a href="/"><img class="w-40 items-center" src="{% static '/img/logo.png'%}" alt=""></a></li>
+            <li class="text-3xl text-center py-5">WellNStyle</li>
         </ul>
         <ul class="flex px-6 mr-12 items-center">
-            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/">Home</a></li>
-            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/collection/">Collection</a></li>
-            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/lookbook/">Lookbook</a></li>
-            <li class="hover:text-gray-200 hover:underline cursor-pointer px-10 py-6"><a href="/customercare/">Customer Care</a></li>
+            <li class="hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6"><a href="/">Home</a></li>
+            <li class="group relative hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6">
+                <a href="/collection/">Fashion</a>
+                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg">
+                    <a href="/collection/#men" class="block px-4 py-2 hover:bg-gray-100">Men's Collection</a>
+                    <a href="/collection/#women" class="block px-4 py-2 hover:bg-gray-100">Women's Collection</a>
+                    <a href="/collection/#accessories" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
+                </div>
+            </li>
+            <li class="group relative hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6">
+                <a href="{% url 'healthcare' %}">Healthcare</a>
+                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg">
+                    <a href="{% url 'medicine' %}" class="block px-4 py-2 hover:bg-gray-100">Medicines</a>
+                    <a href="{% url 'firstaid' %}" class="block px-4 py-2 hover:bg-gray-100">First Aid</a>
+                    <a href="{% url 'wellness' %}" class="block px-4 py-2 hover:bg-gray-100">Wellness</a>
+                </div>
+            </li>
+            <li class="hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6"><a href="/customercare/">Support</a></li>
         </ul>
         {% if user.is_authenticated %}
-            <ul class="flex justify-center">
-                <li class="text-center px-5 my-6"><a href="/account/"><span>{{request.user}}<img src="/media/download.png" class="inline h-8 px-1 relative -top-1"></span></a></li>
-                <li class="hover:text-gray-200 hover:underline cursor-pointer px-5 py-6"><a href="/cart/">Cart - </a></li>
+            <ul class="flex justify-center items-center">
+                <li class="text-center px-5"><a href="/account/" class="flex items-center"><span>{{request.user}}</span><img src="/media/download.png" class="h-8 px-1"></a></li>
+                <li class="hover:bg-[#4FA49D] transition-colors cursor-pointer px-5 py-6"><a href="/cart/">Cart</a></li>
             </ul>
         {% else %}
             <ul class="flex items-center">
@@ -38,40 +53,40 @@
     {% block body %}
     {% endblock %}
 
-    <!-- Footer -->
-    <footer class="bg-gray-600 flex justify-evenly font-thin text-gray-200 p-10">
-        <div><img class="w-52" src="{% static './img/logo.png' %}" alt=""></div>
-        <hr class="rotate-90 border border-gray-400 mt-20 w-40">
-        <div>
-            <ul class="text-2xl">
-                <li class="mb-3"><a href="/customercare/">CUSTOMER CARE</a></li>
-                <ul>
-                    <li class="text-lg"><a href="/customercare/">Shipping Policy</a></li>
-                    <li class="text-lg"><a href="/customercare/">Contact Us</a></li>
-                    <li class="text-lg"><a href="/customercare/">About Us</a></li>
-                    <li class="text-lg"><a href="/customercare/">FAQs</a></li>
+    <footer class="bg-[#1B365D] text-white">
+        <div class="container mx-auto py-12 px-4 grid grid-cols-4 gap-8">
+            <div>
+                <p class="text-3xl text-center py-5"> WellNStyle </p>
+                <p class="mt-4 text-gray-300">Your one-stop destination for fashion and healthcare needs.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="/collection/#fashion" class="hover:text-[#4FA49D]">Fashion Collection</a></li>
+                    <li><a href="/collection/#healthcare" class="hover:text-[#4FA49D]">Healthcare Products</a></li>
                 </ul>
-            </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Customer Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="/customercare/" class="hover:text-[#4FA49D]">Contact Us</a></li>
+                    <li><a href="/customercare/" class="hover:text-[#4FA49D]">Shipping Info</a></li>
+                    <li><a href="/customercare/" class="hover:text-[#4FA49D]">FAQs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:opacity-75"><img class="w-8" src="{% static './img/ig.png' %}" alt="Instagram"></a>
+                    <a href="#" class="hover:opacity-75"><img class="w-8" src="{% static './img/x.png' %}" alt="Twitter"></a>
+                    <a href="#" class="hover:opacity-75"><img class="w-8" src="{% static './img/FB.png' %}" alt="Facebook"></a>
+                </div>
+            </div>
         </div>
-        <hr class="rotate-90 border border-gray-400 mt-20 w-40">
-        <div>
-            <ul>
-                <li class="text-2xl mx-2 mb-3">STAY CONNECTED</li>
-                <li class="flex">
-                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/ig.png' %} " alt="">
-                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/x.png' %} " alt="">
-                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/FB.png' %} " alt="">
-                    <img class="mx-2 cursor-pointer w-12" src="{% static './img/pin.png' %} " alt="">
-                </li>
-            </ul>
+        <div class="bg-[#152B4E] text-center py-4">
+            <p>© 2025 WellNStyle. All rights reserved.</p>
         </div>
-        <div></div>
     </footer>
-    <div class="bg-black text-white text-center text-lg p-4">
-        © 2035 by Sajda.
-    </div>
-
-
 
     {% block js %}
     {% endblock %}

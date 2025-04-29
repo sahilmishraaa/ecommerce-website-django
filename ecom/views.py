@@ -9,15 +9,48 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request,'ecom/index.html')
 
-# Collection
-coll = Product.objects.all()
-category_men = Category.objects.get(name="men")
-category_women = Category.objects.get(name="Women")
-category_acc = Category.objects.get(name="accessories")
+# Helper function to get or create single category
+def get_single_category(name, description):
+    # First try to get the category
+    categories = Category.objects.filter(name=name)
+    if categories.exists():
+        # If multiple categories exist, use the first one and delete others
+        if categories.count() > 1:
+            main_category = categories.first()
+            # Delete other duplicates
+            categories.exclude(id=main_category.id).delete()
+            return main_category
+        return categories.first()
+    else:
+        # If no category exists, create new one
+        return Category.objects.create(name=name, description=description)
 
-men=Product.objects.filter(category=category_men)
-women=Product.objects.filter(category=category_women)
-acc=Product.objects.filter(category=category_acc)
+# Collection categories
+coll = Product.objects.all()
+
+try:
+    # Get fashion categories
+    category_men = get_single_category("men", "Men's Fashion")
+    category_women = get_single_category("Women", "Women's Fashion")
+    category_acc = get_single_category("accessories", "Fashion Accessories")
+
+    # Get medicine categories
+    category_otc = get_single_category("medicines", "Over the counter medicines")
+    category_firstaid = get_single_category("firstaid", "First aid supplies")
+    category_wellness = get_single_category("wellness", "Wellness and health products")
+
+    # Filter products
+    men = Product.objects.filter(category=category_men)
+    women = Product.objects.filter(category=category_women)
+    acc = Product.objects.filter(category=category_acc)
+    otcMed = Product.objects.filter(category=category_otc)
+    firstAid = Product.objects.filter(category=category_firstaid)
+    wellness = Product.objects.filter(category=category_wellness)
+
+except Exception as e:
+    print(f"Error handling categories: {str(e)}")
+    # Set default empty querysets in case of error
+    men = women = acc = otcMed = firstAid = wellness = Product.objects.none()
 
 def collection(request):
     return render(request,'ecom/collection.html',{"menColl":men,"womenColl":women,"accColl":acc})
@@ -202,7 +235,66 @@ def place_order(request):
 
     return render(request, 'ecom/order.html', {'product': product})
 
+def medicine(request):
+    try:
+        # Get the medicines category
+        medicines_category = Category.objects.get(name="medicines")
+        # Get all products in the medicines category
+        medicine_products = Product.objects.filter(category=medicines_category)
+        
+        return render(request, 'ecom/medicine.html', {
+            "otcMed": medicine_products,
+        })
+    except Category.DoesNotExist:
+        # Handle case where category doesn't exist
+        return render(request, 'ecom/medicine.html', {
+            "otcMed": [],
+        })
+
+def wellness(request):
+    try:
+        wellness_category = Category.objects.get(name="wellness")
+        wellness_products = Product.objects.filter(category=wellness_category)
+        return render(request, 'ecom/wellness.html', {
+            "wellness": wellness_products,
+        })
+    except Category.DoesNotExist:
+        return render(request, 'ecom/wellness.html', {
+            "wellness": [],
+        })
+
+def firstaid(request):
+    try:
+        firstaid_category = Category.objects.get(name="firstaid")
+        firstaid_products = Product.objects.filter(category=firstaid_category)
+        return render(request, 'ecom/firstaid.html', {
+            "firstAid": firstaid_products,
+        })
+    except Category.DoesNotExist:
+        return render(request, 'ecom/firstaid.html', {
+            "firstAid": [],
+        })
+
 def account(request):
     return render(request,'ecom/account.html')
+
+def healthcare(request):
+    try:
+        medicines = Product.objects.filter(category__name="medicines")[:4]
+        firstaid = Product.objects.filter(category__name="firstaid")[:4]
+        wellness = Product.objects.filter(category__name="wellness")[:4]
+        
+        return render(request, 'ecom/healthcare.html', {
+            "medicines": medicines,
+            "firstaid": firstaid,
+            "wellness": wellness,
+        })
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return render(request, 'ecom/healthcare.html', {
+            "medicines": [],
+            "firstaid": [],
+            "wellness": [],
+        })
 
 

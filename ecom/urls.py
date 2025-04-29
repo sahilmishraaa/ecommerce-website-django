@@ -20,5 +20,8 @@ urlpatterns=[
     path('order/<int:product_id>/', order_it, name='order'),
     path('place_order/', place_order, name='place_order'),
     path('account/', account, name='account'),
-
+    path('medicine/', medicine, name='medicine'),
+    path('wellness/', wellness, name='wellness'),
+    path('firstaid/', firstaid, name='firstaid'),
+    path('healthcare/', healthcare, name='healthcare'),
 ]
