@@ -297,4 +297,46 @@ def healthcare(request):
             "wellness": [],
         })
 
+@login_required(login_url='/loginpg/')
+def checkout_cart(request):
+    if request.method == 'POST':
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_items = cart.cartitem_set.all()
+        
+        if not cart_items.exists():
+            messages.error(request, "Your cart is empty.")
+            return redirect('cart')
+
+        total_price = cart_items.aggregate(
+            total=Sum(F('quantity') * F('product__price'))
+        )['total'] or 0
+
+        # Create order for all cart items
+        order = Order.objects.create(
+            user=request.user,
+            total_price=total_price,
+            status='Pending'
+        )
+
+        # Add all products from cart to order
+        for cart_item in cart_items:
+            order.products.add(cart_item.product)
+
+        # Create payment record
+        Payment.objects.create(
+            order=order,
+            payment_method='Cash on delivery',
+            amount_paid=total_price,
+            transaction_id='',
+            status='Pending'
+        )
+
+        # Clear the cart
+        cart_items.delete()
+
+        messages.success(request, 'Order placed successfully!')
+        return redirect('orders')
+
+    return redirect('cart')
+
 

@@ -3,36 +3,51 @@
 {% block title %}Cart{% endblock %}
 {% block body %}
 <section class="flex bg-white justify-center items-center p-8">
-   <section class="bg-white justify-center items-center p-2 m-2">
-      <div class="flex justify-between">
-         <h2>Shopping Bag</h2>
-         <h2>{{ cart.cartitem_set.count }} items</h2>
+   <section class="bg-white justify-center items-center p-2 m-2 w-full max-w-4xl">
+      <div class="flex justify-between items-center mb-6">
+         <h2 class="text-2xl font-semibold">Shopping Bag</h2>
+         <h2 class="text-lg">{{ cart.cartitem_set.count }} items</h2>
       </div>
-      <hr class="border border-black m-2">
-      <div id="hui">
-         {% if cart.cartitem_set.exists %}
+      <hr class="border border-gray-200 mb-6">
+      
+      {% if cart.cartitem_set.exists %}
+      <div class="space-y-4">
          {% for item in cart.cartitem_set.all %}
-         <div class="flex bg-white flex-col">
-            <ul class="flex bg-gray-50 py-8 mx-16 justify-between border-b-4 border-gray-500 items-center">
-               <li class="relative -left-10 text-2xl">{{ forloop.counter }}</li>
-               <li><img src="/media/{{item.product.image}}" class="h-20" alt=""></li>
-               <li class="px-16 text-2xl">{{ item.product.name }}</li>
-               <li class="px-16 text-2xl">{{ item.quantity }}</li>
-               <li class="px-16 text-2xl">${{ item.product.price }}</li>
-               <li class="px-16 text-2xl"><a href="{% url 'remove_from_cart' item.product.id %}">Remove</a></li>
-            </ul>
-         </div>
-
-         <a href="{% url 'order' item.product.id %}">
-            <div class="py-2 hover:bg-gray-800 bg-gray-700 text-white my-3 px-20 text-center w-96 p-8 rounded-lg relative -right-72">
-               Proceed To Checkout
+         <div class="flex bg-gray-50 p-4 rounded-lg justify-between items-center">
+            <div class="flex items-center space-x-4">
+               <span class="text-gray-500">{{ forloop.counter }}</span>
+               <img src="/media/{{item.product.image}}" class="h-20 w-20 object-cover rounded" alt="">
+               <div>
+                  <h3 class="text-lg font-medium">{{ item.product.name }}</h3>
+                  <p class="text-gray-500">Quantity: {{ item.quantity }}</p>
+               </div>
             </div>
-         </a>
+            <div class="flex items-center space-x-8">
+               <span class="text-lg font-semibold">${{ item.total_price }}</span>
+               <a href="{% url 'remove_from_cart' item.product.id %}" class="text-red-500 hover:text-red-700">Remove</a>
+            </div>
+         </div>
          {% endfor %}
-         {% else %}
-         <li>Your cart is empty.</li>
-         {% endif %}
+
+         <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+            <div class="flex justify-between mb-4">
+               <span class="text-lg">Subtotal:</span>
+               <span class="text-lg font-semibold">${{ total_price }}</span>
+            </div>
+            <form action="{% url 'checkout_cart' %}" method="POST">
+               {% csrf_token %}
+               <button type="submit" class="w-full bg-[#1B365D] text-white py-3 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                  Checkout All Items
+               </button>
+            </form>
+         </div>
       </div>
+      {% else %}
+      <div class="text-center py-12">
+         <p class="text-gray-500 text-lg">Your cart is empty.</p>
+         <a href="{% url 'collection' %}" class="text-[#4FA49D] hover:underline mt-4 inline-block">Continue Shopping</a>
+      </div>
+      {% endif %}
    </section>
 </section>
 {% endblock %}
