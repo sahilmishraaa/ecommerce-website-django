@@ -24,5 +24,5 @@ urlpatterns=[
     path('wellness/', wellness, name='wellness'),
     path('firstaid/', firstaid, name='firstaid'),
     path('healthcare/', healthcare, name='healthcare'),
-    path('checkout/cart/', checkout_cart, name='checkout_cart'),
+    path('cart/checkout/', cart_checkout, name='cart_checkout'),
 ]

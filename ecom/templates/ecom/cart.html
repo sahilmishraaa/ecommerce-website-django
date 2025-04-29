@@ -30,17 +30,14 @@
          {% endfor %}
 
          <div class="mt-8 bg-gray-50 p-6 rounded-lg">
-            <div class="flex justify-between mb-4">
-               <span class="text-lg">Subtotal:</span>
-               <span class="text-lg font-semibold">${{ total_price }}</span>
+                <div class="flex justify-between mb-4">
+                    <span class="text-lg">Subtotal:</span>
+                    <span class="text-lg font-semibold">${{ total_price }}</span>
+                </div>
+                <a href="{% url 'cart_checkout' %}" class="block w-full text-center bg-[#1B365D] text-white py-3 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                    Proceed to Checkout
+                </a>
             </div>
-            <form action="{% url 'checkout_cart' %}" method="POST">
-               {% csrf_token %}
-               <button type="submit" class="w-full bg-[#1B365D] text-white py-3 rounded-lg hover:bg-[#4FA49D] transition-colors">
-                  Checkout All Items
-               </button>
-            </form>
-         </div>
       </div>
       {% else %}
       <div class="text-center py-12">

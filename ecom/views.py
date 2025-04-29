@@ -183,57 +183,64 @@ def order_it(request,product_id):
 	return render(request,'ecom/order.html',{'product': product})
 
 @login_required(login_url='/loginpg/')
+def cart_checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    cart_items = cart.cartitem_set.all()
+    total_price = sum(item.quantity * item.product.price for item in cart_items)
+    
+    return render(request, 'ecom/order.html', {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'is_cart_checkout': True
+    })
+
+@login_required(login_url='/loginpg/')
 def place_order(request):
-    product = get_object_or_404(Product, pk=request.POST.get('product_id'))
-	
-
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        postal_code = request.POST.get('postal_code')
-        country = request.POST.get('country')
-        total_price = product.price  # Assuming the total price is the price of the product
-
-        # Assuming the user is authenticated, you can get the user instance
-        user = request.user
-
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_items = cart.cartitem_set.all()
+        
         # Create address instance
         address_instance = Address.objects.create(
-            user=user,
-            address_line1=address,
-            city=city,
-            state=state,
-            zip_code=postal_code,
-            country=country
+            user=request.user,
+            address_line1=request.POST.get('address'),
+            city=request.POST.get('city'),
+            state=request.POST.get('state'),
+            zip_code=request.POST.get('postal_code'),
+            country=request.POST.get('country')
         )
 
         # Create order instance
+        total_price = cart_items.aggregate(
+            total=Sum(F('quantity') * F('product__price'))
+        )['total'] or 0
+        
         order = Order.objects.create(
-            user=user,
+            user=request.user,
             total_price=total_price,
-            status='Pending'  # You can set initial status as Pending or any other status
+            status='Pending'
         )
 
-        # Assuming you have a payment confirmation, you can update the payment status as well
-        payment_status = 'Success'  # You need to retrieve this from your payment gateway response
+        # Add all products from cart to order
+        for cart_item in cart_items:
+            order.products.add(cart_item.product)
+
+        # Create payment record
         Payment.objects.create(
             order=order,
-            payment_method='Cash on delivery',  # You can modify this based on the actual payment method
+            payment_method='Cash on delivery',
             amount_paid=total_price,
-            transaction_id='',  # You can fill this with actual transaction ID if available
-            status=payment_status
+            transaction_id='',
+            status='Pending'
         )
 
-        # You can add product to the order
-        order.products.add(product)
+        # Clear the cart
+        cart_items.delete()
 
         messages.success(request, 'Order placed successfully!')
-        return redirect('/home/')  # Redirect to home page or any other page after successful order placement
+        return redirect('orders')
 
-    return render(request, 'ecom/order.html', {'product': product})
+    return redirect('cart')
 
 def medicine(request):
     try:
@@ -296,47 +303,5 @@ def healthcare(request):
             "firstaid": [],
             "wellness": [],
         })
-
-@login_required(login_url='/loginpg/')
-def checkout_cart(request):
-    if request.method == 'POST':
-        cart = get_object_or_404(Cart, user=request.user)
-        cart_items = cart.cartitem_set.all()
-        
-        if not cart_items.exists():
-            messages.error(request, "Your cart is empty.")
-            return redirect('cart')
-
-        total_price = cart_items.aggregate(
-            total=Sum(F('quantity') * F('product__price'))
-        )['total'] or 0
-
-        # Create order for all cart items
-        order = Order.objects.create(
-            user=request.user,
-            total_price=total_price,
-            status='Pending'
-        )
-
-        # Add all products from cart to order
-        for cart_item in cart_items:
-            order.products.add(cart_item.product)
-
-        # Create payment record
-        Payment.objects.create(
-            order=order,
-            payment_method='Cash on delivery',
-            amount_paid=total_price,
-            transaction_id='',
-            status='Pending'
-        )
-
-        # Clear the cart
-        cart_items.delete()
-
-        messages.success(request, 'Order placed successfully!')
-        return redirect('orders')
-
-    return redirect('cart')
 
 
