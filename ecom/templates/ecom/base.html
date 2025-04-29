@@ -24,8 +24,7 @@
         </ul>
         {% if user.is_authenticated %}
             <ul class="flex justify-center">
-                <li class="text-center px-5 my-6">Welcome, {{request.user}}</li>
-                <li class="hover:text-gray-200 hover:underline cursor-pointer px-5 py-6"><a href="/logoutmanage/">Log Out</a></li>
+                <li class="text-center px-5 my-6"><a href="/account/"><span>{{request.user}}<img src="/media/download.png" class="inline h-8 px-1 relative -top-1"></span></a></li>
                 <li class="hover:text-gray-200 hover:underline cursor-pointer px-5 py-6"><a href="/cart/">Cart - </a></li>
             </ul>
         {% else %}

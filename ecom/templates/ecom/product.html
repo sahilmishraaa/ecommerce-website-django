@@ -33,7 +33,9 @@
                 <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart">
                     <button class="py-2 hover:bg-green-200 bg-green-100 text-center px-10 my-2 w-52">Add to Cart</button>
                 </a>
-                <button class="py-2 hover:bg-gray-800 bg-gray-700 text-white my-3 px-20 w-52">Buy Now</button>
+                <a href="{% url 'order' product.id %}">
+                    <button class="py-2 hover:bg-gray-800 bg-gray-700 text-white my-3 px-20 w-52">Buy Now</button>
+                </a>
             </div>
         
     </section>

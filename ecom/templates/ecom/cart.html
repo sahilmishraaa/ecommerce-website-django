@@ -11,20 +11,26 @@
       <hr class="border border-black m-2">
       <div id="hui">
          {% if cart.cartitem_set.exists %}
-            {% for item in cart.cartitem_set.all %}
-               <div class="flex bg-white flex-col">
-                  <ul class="flex bg-gray-50 py-4 py-8 mx-16 justify-between border-b-4 border-gray-500 items-center">
-                     <li class="relative -left-10 text-2xl">{{ forloop.counter }}</li>
-                     <li><img src="/media/{{item.product.image}}" class="h-20" alt=""></li>
-                     <li class="px-16 text-2xl">{{ item.product.name }}</li>
-                     <li class="px-16 text-2xl">{{ item.quantity }}</li>
-                     <li class="px-16 text-2xl">${{ item.product.price }}</li>
-                     <li class="px-16 text-2xl"><a href="{% url 'remove_from_cart' item.product.id %}">Remove</a></li>
-                  </ul>
-               </div>
-            {% endfor %}
+         {% for item in cart.cartitem_set.all %}
+         <div class="flex bg-white flex-col">
+            <ul class="flex bg-gray-50 py-8 mx-16 justify-between border-b-4 border-gray-500 items-center">
+               <li class="relative -left-10 text-2xl">{{ forloop.counter }}</li>
+               <li><img src="/media/{{item.product.image}}" class="h-20" alt=""></li>
+               <li class="px-16 text-2xl">{{ item.product.name }}</li>
+               <li class="px-16 text-2xl">{{ item.quantity }}</li>
+               <li class="px-16 text-2xl">${{ item.product.price }}</li>
+               <li class="px-16 text-2xl"><a href="{% url 'remove_from_cart' item.product.id %}">Remove</a></li>
+            </ul>
+         </div>
+
+         <a href="{% url 'order' item.product.id %}">
+            <div class="py-2 hover:bg-gray-800 bg-gray-700 text-white my-3 px-20 text-center w-96 p-8 rounded-lg relative -right-72">
+               Proceed To Checkout
+            </div>
+         </a>
+         {% endfor %}
          {% else %}
-            <li>Your cart is empty.</li>
+         <li>Your cart is empty.</li>
          {% endif %}
       </div>
    </section>

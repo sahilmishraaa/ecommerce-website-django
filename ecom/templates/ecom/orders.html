@@ -1,0 +1,74 @@
+{% extends 'ecom/base.html' %}
+{% load static %}
+{% block title %} Orders {% endblock %}
+{% block css %}
+<style>
+.order {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 10px;
+  width: 70%;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-details {
+  display: flex;
+}
+@media(max-width: 500px) {
+  .order-details {
+  flex-direction: column;
+  align-items: center;
+}
+  
+}
+
+.order-details img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.order-info {
+  flex-grow: 1;
+}
+
+.order-info h3 {
+  margin: 0;
+}
+
+.order-info p {
+  margin: 5px 0;
+}
+
+.order-info p:last-child {
+  margin-bottom: 10px;
+}
+
+</style>
+{% endblock %}
+{% block body %} 
+<div class="flex flex-col items-center">
+    {% for order in user_orders %}
+    <div class="order">
+        <div class="order-details">
+          {% for item in order.products.all %}
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" width="100">
+          {% endfor %}
+            <div class="order-info">
+                <h3>Order #{{ order.id }}</h3>
+                <p>Items: {% for item in order.products.all %} {{ item.name }}, {% endfor %}</p>
+                <p>Total Price : ${{ order.total_price }}</p>
+                <p>Status: {{ order.status }}</p>
+              
+
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No orders found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -22,6 +22,7 @@ acc=Product.objects.filter(category=category_acc)
 def collection(request):
     return render(request,'ecom/collection.html',{"menColl":men,"womenColl":women,"accColl":acc})
 
+@login_required(login_url='/loginpg/')
 def customercare(request):
     if request.method=="POST":
         name=request.POST['name']
@@ -69,6 +70,7 @@ def product(request,product_id):
 
 def signupmanage(request):
     if request.method=='POST':
+        name=request.POST['name']
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
@@ -97,11 +99,9 @@ def signupmanage(request):
         return HttpResponse('Error 404 Not Found')
 
 # views.py
-from django.shortcuts import get_object_or_404, redirect, render
-from .models import Product, Cart, CartItem
-from django.contrib.auth.decorators import login_required
 
-@login_required
+
+@login_required(login_url='/loginpg/')
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -113,7 +113,7 @@ def add_to_cart(request, product_id):
 
     return redirect('cart')
 
-@login_required
+@login_required(login_url='/loginpg/')
 def remove_from_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart = get_object_or_404(Cart, user=request.user)
@@ -124,7 +124,7 @@ def remove_from_cart(request, product_id):
 # views.py
 from django.db.models import Sum, F
 
-@login_required
+@login_required(login_url='/loginpg/')
 def cart(request):
     cart = get_object_or_404(Cart, user=request.user)
     cart_items = cart.cartitem_set.all()
@@ -136,5 +136,73 @@ def cart(request):
         'cart_items': cart_items,
         'total_price': total_price
     })
+
+# FOR ORDERS
+
+@login_required(login_url='/loginpg/')
+def orders(request):
+    # Retrieve orders associated with the current user
+    user_orders = Order.objects.filter(user=request.user)
+    return render(request, "ecom/orders.html", {'user_orders': user_orders})
+
+def order_it(request,product_id):
+	product = get_object_or_404(Product, pk=product_id)
+	return render(request,'ecom/order.html',{'product': product})
+
+@login_required(login_url='/loginpg/')
+def place_order(request):
+    product = get_object_or_404(Product, pk=request.POST.get('product_id'))
+	
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        postal_code = request.POST.get('postal_code')
+        country = request.POST.get('country')
+        total_price = product.price  # Assuming the total price is the price of the product
+
+        # Assuming the user is authenticated, you can get the user instance
+        user = request.user
+
+        # Create address instance
+        address_instance = Address.objects.create(
+            user=user,
+            address_line1=address,
+            city=city,
+            state=state,
+            zip_code=postal_code,
+            country=country
+        )
+
+        # Create order instance
+        order = Order.objects.create(
+            user=user,
+            total_price=total_price,
+            status='Pending'  # You can set initial status as Pending or any other status
+        )
+
+        # Assuming you have a payment confirmation, you can update the payment status as well
+        payment_status = 'Success'  # You need to retrieve this from your payment gateway response
+        Payment.objects.create(
+            order=order,
+            payment_method='Cash on delivery',  # You can modify this based on the actual payment method
+            amount_paid=total_price,
+            transaction_id='',  # You can fill this with actual transaction ID if available
+            status=payment_status
+        )
+
+        # You can add product to the order
+        order.products.add(product)
+
+        messages.success(request, 'Order placed successfully!')
+        return redirect('/home/')  # Redirect to home page or any other page after successful order placement
+
+    return render(request, 'ecom/order.html', {'product': product})
+
+def account(request):
+    return render(request,'ecom/account.html')
 
 

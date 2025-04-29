@@ -28,18 +28,16 @@
                 {% csrf_token %}
                 <h2 class="text-center text-2xl">Sign Up</h2>
                 <br>
+                <label for="name">Name:</label>
+                <input class="mb-4 bg-black border-b w-72" type="text" id="name" name="name" required>
                 <label for="username">Username:</label>
                 <input class="mb-4 bg-black border-b w-72" type="text" id="username" name="username" required>
-                <br>
                 <label for="email">Email:</label>
                 <input class="mb-4 bg-black border-b w-72" type="email" id="email" name="email" required>
-                <br>
                 <label for="password">Password:</label>
                 <input class="mb-4 bg-black border-b w-72" type="password" id="password" name="password" required>
-                <br>
                 <label for="cpassword">Confirm Password:</label>
                 <input class="mb-4 bg-black border-b w-72" type="password" id="cpassword" name="cpassword" required>
-                <br>
                 <input class=" bg-gray-400 w-1/2 self-center rounded-lg p-1.5 my-6 hover:bg-gray-500" type="submit" value="Sign Up">
             </form>
             
