@@ -1,17 +1,25 @@
 {% extends 'ecom/base.html' %}
 {% load static %}
-{% block title %}Sajda - Fashion & Healthcare{% endblock %}
+{% block title %}WellNStyle - Fashion & Healthcare{% endblock %}
 {% block body %}
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] text-white py-20">
-        <div class="container mx-auto text-center px-4">
-            <h1 class="text-5xl font-bold mb-6">Style Meets Wellness</h1>
-            <p class="text-xl mb-8">Your trusted destination for fashion and healthcare essentials</p>
-            <div class="flex justify-center gap-4">
-                <a href="#fashion" class="bg-white text-[#1B365D] px-8 py-3 rounded-full hover:bg-gray-100">Shop Fashion</a>
-                <a href="#healthcare" class="border-2 border-white px-8 py-3 rounded-full hover:bg-white hover:text-[#1B365D]">Shop Healthcare</a>
+    <div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] text-white min-h-[90vh] flex items-center relative">
+        <!-- Changed overlay opacity and z-index -->
+        <div class="absolute inset-0 bg-black/20" style="z-index: 1;"></div>
+        <div class="container mx-auto text-center px-4 relative" style="z-index: 2;">
+            <h1 class="text-6xl font-bold mb-8 leading-tight">Style Meets <span class="text-[#4FA49D]">Wellness</span></h1>
+            <p class="text-2xl mb-12 max-w-2xl mx-auto text-gray-100">Your trusted destination for fashion and healthcare essentials, where style and well-being come together seamlessly.</p>
+            <div class="flex justify-center gap-6">
+                <a href="#fashion" class="bg-white text-[#1B365D] px-10 py-4 rounded-full hover:bg-gray-100 text-lg font-semibold transition-all transform hover:scale-105 inline-block">
+                    Shop Fashion
+                </a>
+                <a href="#healthcare" class="border-2 border-white px-10 py-4 rounded-full hover:bg-white hover:text-[#1B365D] text-lg font-semibold transition-all transform hover:scale-105 inline-block">
+                    Shop Healthcare
+                </a>
             </div>
         </div>
+        <!-- Adjusted gradient fade -->
+        <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F5F7FA] to-transparent" style="z-index: 1;"></div>
     </div>
 
     <!-- Fashion Section -->
@@ -44,7 +52,7 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- OTC Medicines Card -->
                 <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/medicine-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i1.png' %}'); filter: brightness(0.3);"></div>
                     <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
                         <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">💊</div>
                         <h3 class="text-2xl font-semibold mb-2 text-white">OTC Medicines</h3>
@@ -58,7 +66,7 @@
 
                 <!-- First Aid Card -->
                 <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/firstaid-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i2.png' %}'); filter: brightness(0.3);"></div>
                     <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
                         <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🏥</div>
                         <h3 class="text-2xl font-semibold mb-2 text-white">First Aid</h3>
@@ -72,7 +80,7 @@
 
                 <!-- Wellness Card -->
                 <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/wellness-bg.jpg' %}'); filter: brightness(0.3);"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i3.png' %}'); filter: brightness(0.3);"></div>
                     <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
                         <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🌿</div>
                         <h3 class="text-2xl font-semibold mb-2 text-white">Wellness</h3>
@@ -120,6 +128,7 @@
         <div class="container mx-auto px-4">
             <h2 class="text-4xl text-center text-[#1B365D] mb-12">Customer Reviews</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- First Testimonial -->
                 <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
                     <div class="flex flex-col items-center">
                         <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 
@@ -131,6 +140,7 @@
                     </div>
                 </div>
 
+                <!-- Second Testimonial -->
                 <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
                     <div class="flex flex-col items-center">
                         <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 
@@ -142,6 +152,7 @@
                     </div>
                 </div>
 
+                <!-- Third Testimonial -->
                 <div class="bg-[#F5F7FA] rounded-xl p-8 shadow-sm">
                     <div class="flex flex-col items-center">
                         <img alt="testimonial" class="w-20 h-20 mb-6 object-cover rounded-full border-2 border-[#4FA49D]" 

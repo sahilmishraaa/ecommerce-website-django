@@ -13,7 +13,7 @@
 </head>
 <body>
     <!-- NAV -->
-    <nav class="flex justify-around text-lg bg-[#1B365D] text-white shadow-lg">
+    <nav class="flex justify-around text-lg bg-[#1B365D] text-white shadow-lg relative z-50">
         <ul>
             <li class="text-3xl text-center py-5">WellNStyle</li>
         </ul>
@@ -21,7 +21,7 @@
             <li class="hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6"><a href="/">Home</a></li>
             <li class="group relative hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6">
                 <a href="/collection/">Fashion</a>
-                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg">
+                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg z-50">
                     <a href="/collection/#men" class="block px-4 py-2 hover:bg-gray-100">Men's Collection</a>
                     <a href="/collection/#women" class="block px-4 py-2 hover:bg-gray-100">Women's Collection</a>
                     <a href="/collection/#accessories" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
@@ -29,7 +29,7 @@
             </li>
             <li class="group relative hover:bg-[#4FA49D] transition-colors cursor-pointer px-6 py-6">
                 <a href="{% url 'healthcare' %}">Healthcare</a>
-                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg">
+                <div class="hidden group-hover:block absolute bg-white text-[#1B365D] w-48 shadow-lg z-50">
                     <a href="{% url 'medicine' %}" class="block px-4 py-2 hover:bg-gray-100">Medicines</a>
                     <a href="{% url 'firstaid' %}" class="block px-4 py-2 hover:bg-gray-100">First Aid</a>
                     <a href="{% url 'wellness' %}" class="block px-4 py-2 hover:bg-gray-100">Wellness</a>

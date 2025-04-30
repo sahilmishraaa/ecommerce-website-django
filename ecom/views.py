@@ -282,8 +282,19 @@ def firstaid(request):
             "firstAid": [],
         })
 
+@login_required(login_url='/loginpg/')
 def account(request):
-    return render(request,'ecom/account.html')
+    # Get recent orders
+    recent_orders = Order.objects.filter(user=request.user).order_by('-id')[:3]
+    
+    # Get cart count
+    cart = Cart.objects.filter(user=request.user).first()
+    cart_count = cart.cartitem_set.count() if cart else 0
+    
+    return render(request, 'ecom/account.html', {
+        'recent_orders': recent_orders,
+        'cart_count': cart_count
+    })
 
 def healthcare(request):
     try:
