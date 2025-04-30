@@ -1,45 +1,87 @@
 {% extends 'ecom/base.html' %}
 {% load static %}
 
-{% block title %} Collection {% endblock %}
+{% block title %}Collection - WellNStyle{% endblock %}
+
 {% block body %}
-<section class="woman">
-    <div id="women" class="bg-gray-200 text-center text-3xl p-8">Women</div>
-    <section class="flex flex-wrap justify-center">
-        {% for i in womenColl %}
-        <div class="h-96 p-6 my-12 ">
-            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
-            <span>{{i.name}}</span>
-            <div>${{i.price}}</div>
+<!-- Category Header -->
+<div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] py-12">
+    <h1 class="text-4xl text-center text-white mb-4">Fashion Collection</h1>
+    <p class="text-center text-gray-100">Explore our curated collections</p>
+</div>
 
+<!-- Women's Collection -->
+<section id="women" class="py-16 bg-[#F5F7FA]">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl text-[#1B365D] mb-8 pl-4 border-l-4 border-[#4FA49D]">Women's Collection</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for i in womenColl %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                <a href="{% url 'product' i.id %}">
+                    <img class="w-full h-96 object-cover" src="/media/{{i.image}}" alt="{{i.name}}">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-[#1B365D]">{{i.name}}</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-[#4FA49D] font-bold">${{i.price}}</span>
+                            <button class="bg-[#1B365D] text-white px-4 py-2 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </section>
-
-    <div id="men" class="mt-32 bg-gray-200 text-center text-3xl p-8">Men</div>
-    <section class="flex flex-wrap justify-center">
-        {% for i in menColl %}
-        <div class="h-96 p-6 my-12 ">
-            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
-            <span>{{i.name}}</span>
-            <div>${{i.price}}</div>
-            
-        </div>
-        {% endfor %}
-    </section>
-
-    <div id="acc" class="mt-32 bg-gray-200 text-center text-3xl p-8">Accessories</div>
-    <section class="flex flex-wrap justify-center">
-        {% for i in accColl %}
-        <div class="h-96 p-6 my-12 ">
-            <a href="{%url 'product' i.id%}"><img class="h-96" src="/media/{{i.image}}" alt="no image"></a>
-            <span>{{i.name}}</span>
-            <div>${{i.price}}</div>
-            
-        </div>
-        {% endfor %}
-    </section>
+    </div>
 </section>
-<br>
-<br>
+
+<!-- Men's Collection -->
+<section id="men" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl text-[#1B365D] mb-8 pl-4 border-l-4 border-[#4FA49D]">Men's Collection</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for i in menColl %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                <a href="{% url 'product' i.id %}">
+                    <img class="w-full h-96 object-cover" src="/media/{{i.image}}" alt="{{i.name}}">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-[#1B365D]">{{i.name}}</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-[#4FA49D] font-bold">${{i.price}}</span>
+                            <button class="bg-[#1B365D] text-white px-4 py-2 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Accessories Collection -->
+<section id="acc" class="py-16 bg-[#F5F7FA]">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl text-[#1B365D] mb-8 pl-4 border-l-4 border-[#4FA49D]">Accessories Collection</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for i in accColl %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                <a href="{% url 'product' i.id %}">
+                    <img class="w-full h-96 object-cover" src="/media/{{i.image}}" alt="{{i.name}}">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-[#1B365D]">{{i.name}}</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-[#4FA49D] font-bold">${{i.price}}</span>
+                            <button class="bg-[#1B365D] text-white px-4 py-2 rounded-lg hover:bg-[#4FA49D] transition-colors">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

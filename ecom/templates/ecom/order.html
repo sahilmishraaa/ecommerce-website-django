@@ -1,174 +1,178 @@
 {% extends 'ecom/base.html' %}
 {% load static %}
-{% block title %} Order {% endblock %}
-{% block css %}
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    fieldset label span {
-        min-width: 125px;
-    }
-    fieldset .select::after {
-        content: '';
-        position: absolute;
-        width: 9px;
-        height: 5px;
-        right: 20px;
-        top: 50%;
-        margin-top: -2px;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'><title>Arrow</title><path d='M.552 0H8.45c.58 0 .723.359.324.795L5.228 4.672a.97.97 0 0 1-1.454 0L.228.795C-.174.355-.031 0 .552 0z' fill='%23CFD7DF' fill-rule='evenodd'/></svg>");
-        pointer-events: none;
-    }
-</style>
-{% endblock %}
+{% block title %}Checkout - WellNStyle{% endblock %}
 
-{% block body %} 
+{% block body %}
+<div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] py-12">
+    <h1 class="text-4xl text-center text-white mb-4">Checkout</h1>
+    <p class="text-center text-gray-100">Complete your purchase</p>
+</div>
 
-<div class="h-screen grid grid-cols-3">
-    <div class="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
-        <div class="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
-            <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
-                <div class="text-yellow-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 sm:w-5 h-6 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<div class="container mx-auto px-4 py-12">
+    <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Checkout Form -->
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-8">
+            <div class="flex items-center mb-8">
+                <div class="bg-[#4FA49D]/10 p-3 rounded-full">
+                    <svg class="w-6 h-6 text-[#4FA49D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <div class="text-sm font-medium ml-3">Checkout</div>
+                <div class="ml-4">
+                    <h2 class="text-xl font-semibold text-[#1B365D]">Shipping & Billing Information</h2>
+                    <p class="text-gray-600 text-sm">Please fill in your details</p>
+                </div>
             </div>
-            <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Complete your shipping and payment details below.</div>
-            <div class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </div>
-        </div>
-        <div class="rounded-md">
-            <form id="payment-form" method="POST" action="{% url 'place_order' %}">
+
+            <form id="payment-form" method="POST" action="{% url 'place_order' %}" class="space-y-6">
                 {% csrf_token %}
-                <section>
-                    <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
-                    <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
-                        <input type="hidden" name="total_price" value="{% if is_cart_checkout %}{{ total_price }}{% else %}{{ product.price }}{% endif %}">
-                        <input type="hidden" name="product_id" value="{{ product.id }}">
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-        
-                            <span class="text-right px-2">Name</span>
-                            <input name="name" class="focus:outline-none px-3" placeholder="Full Name" required="">
-                        </label>
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span class="text-right px-2">Email</span>
-                            <input name="email" type="email" class="focus:outline-none px-3" placeholder="try@example.com" required="">
-                        </label>
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span class="text-right px-2">Address</span>
-                            <input name="address" class="focus:outline-none px-3" placeholder="House number building ">
-                        </label>
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span class="text-right px-2">City</span>
-                            <input name="city" class="focus:outline-none px-3" placeholder="Delhi">
-                        </label>
-                        <label class="inline-flex w-2/4 border-gray-200 py-3">
-                            <span class="text-right px-2">State</span>
-                            <input name="state" class="focus:outline-none px-3" placeholder="Uttar Pradesh">
-                        </label>
-                        <label class="xl:w-1/4 xl:inline-flex items-center flex xl:border-none border-t border-gray-200 py-3">
-                            <span class="text-right px-2 xl:px-0 xl:text-none">PIN/ZIP</span>
-                            <input name="postal_code" class="focus:outline-none px-3" placeholder="211001">
-                        </label>
-                        <label class="flex border-t border-gray-200 h-12 py-3 items-center select relative">
-                            <span class="text-right px-2">Country</span>
-                            <div id="country" class="focus:outline-none px-3 w-full flex items-center">
-                                <select name="country" class="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
-                                    <option value="AU">Australia</option>
-                                    <option value="BE">Belgium</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="CN">China</option>
-                                    <option value="DK">Denmark</option>
-                                    <option value="FI">Finland</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="HK">Hong Kong</option>
-                                    <option value="IE">Ireland</option>
-                                    <option value="IT">Italy</option>
-                                    <option value="IN">India</option>
-                                    <option value="JP">Japan</option>
-                                    <option value="LU">Luxembourg</option>
-                                    <option value="MX">Mexico</option>
-                                    <option value="NL">Netherlands</option>
-                                    <option value="PL">Poland</option>
-                                    <option value="PT">Portugal</option>
-                                    <option value="SG">Singapore</option>
-                                    <option value="ES">Spain</option>
-                                    <option value="TN">Tunisia</option>
-                                    <option value="GB">United Kingdom</option>
-                                    <option value="IN" selected="selected">India</option>
-                                </select>
+                <input type="hidden" name="total_price" value="{% if is_cart_checkout %}{{ total_price }}{% else %}{{ product.price }}{% endif %}">
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Name Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors" placeholder="John Doe">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input name="email" type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors" placeholder="john@example.com">
+                    </div>
+
+                    <!-- Address Field -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                        <input name="address" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors" placeholder="Street address">
+                    </div>
+
+                    <!-- City Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                        <input name="city" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors">
+                    </div>
+
+                    <!-- State Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                        <input name="state" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors">
+                    </div>
+
+                    <!-- ZIP Code Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                        <input name="postal_code" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors">
+                    </div>
+
+                    <!-- Country Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                        <select name="country" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#4FA49D] focus:border-[#4FA49D] transition-colors">
+                            <option value="IN" selected>India</option>
+                            <option value="AU">Australia</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BR">Brazil</option>
+                            <option value="CA">Canada</option>
+                            <option value="CN">China</option>
+                            <option value="DK">Denmark</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IT">Italy</option>
+                            <option value="JP">Japan</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MX">Mexico</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="SG">Singapore</option>
+                            <option value="ES">Spain</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="GB">United Kingdom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-[#1B365D] mb-4">Payment Method</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="flex items-center">
+                            <input type="radio" name="payment_method" value="cod" checked class="text-[#4FA49D]">
+                            <label class="ml-2 text-gray-700">Cash on Delivery</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-[#1B365D] to-[#4FA49D] text-white py-4 rounded-lg hover:opacity-90 transition-opacity transform hover:scale-[1.02] duration-200 font-semibold text-lg">
+                    Place Order
+                </button>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <h1 class="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
+            <ul class="py-6 border-b space-y-6 px-8">
+                {% if is_cart_checkout %}
+                    {% for item in cart_items %}
+                    <li class="grid grid-cols-6 gap-2 border-b-1">
+                        <div class="col-span-1 self-center">
+                            <img src="/media/{{item.product.image}}" alt="Product" class="rounded w-full">
+                        </div>
+                        <div class="flex flex-col col-span-3 pt-2">
+                            <span class="text-gray-600 text-md font-semi-bold">{{item.product.name}}</span>
+                            <span class="text-gray-400 text-sm inline-block pt-2">{{item.product.category}}</span>
+                        </div>
+                        <div class="col-span-2 pt-3">
+                            <div class="flex items-center space-x-2 text-sm justify-between">
+                                <span class="text-gray-400">{{item.quantity}} x ${{item.product.price}}</span>
+                                <span class="text-pink-400 font-semibold inline-block">${{item.total_price}}</span>
                             </div>
-                        </label>
-                    </fieldset>
-                </section>
-            </div>
-            <div class="rounded-md">
-                <section>
-                    <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Payment Information</h2>
-                    <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span class="text-right px-2">Cash on delivery</span>
-                            <input name="cod" type="hidden" class="focus:outline-none px-3 w-full" placeholder="COD" required="" >
-                        </label>
-                    </fieldset>
-                </section>
-            </div>
-            <button type="submit" class="submit-button px-4 py-3 rounded-full bg-green-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors hover:bg-green-800">
-                Place Order
-            </button>
-        </form>
-    </div>
-    <div class="col-span-1 bg-white lg:block hidden">
-        <h1 class="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
-        <ul class="py-6 border-b space-y-6 px-8">
-            {% if is_cart_checkout %}
-                {% for item in cart_items %}
-                <li class="grid grid-cols-6 gap-2 border-b-1">
-                    <div class="col-span-1 self-center">
-                        <img src="/media/{{item.product.image}}" alt="Product" class="rounded w-full">
-                    </div>
-                    <div class="flex flex-col col-span-3 pt-2">
-                        <span class="text-gray-600 text-md font-semi-bold">{{item.product.name}}</span>
-                        <span class="text-gray-400 text-sm inline-block pt-2">{{item.product.category}}</span>
-                    </div>
-                    <div class="col-span-2 pt-3">
-                        <div class="flex items-center space-x-2 text-sm justify-between">
-                            <span class="text-gray-400">{{item.quantity}} x ${{item.product.price}}</span>
-                            <span class="text-pink-400 font-semibold inline-block">${{item.total_price}}</span>
                         </div>
-                    </div>
-                </li>
-                {% endfor %}
-            {% else %}
-                <li class="grid grid-cols-6 gap-2 border-b-1">
-                    <div class="col-span-1 self-center">
-                        <img src="/media/{{product.image}}" alt="Product" class="rounded w-full">
-                    </div>
-                    <div class="flex flex-col col-span-3 pt-2">
-                        <span class="text-gray-600 text-md font-semi-bold">{{product.name}}</span>
-                        <span class="text-gray-400 text-sm inline-block pt-2">{{product.category}}</span>
-                    </div>
-                    <div class="col-span-2 pt-3">
-                        <div class="flex items-center space-x-2 text-sm justify-between">
-                            <span class="text-gray-400">1 x {{product.price}}</span>
-                            <span class="text-pink-400 font-semibold inline-block">{{product.price}}</span>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="grid grid-cols-6 gap-2 border-b-1">
+                        <div class="col-span-1 self-center">
+                            <img src="/media/{{product.image}}" alt="Product" class="rounded w-full">
                         </div>
-                    </div>
-                </li>
-            {% endif %}
-        </ul>
-        <div class="px-8 border-b">
-            <div class="flex justify-between py-4 text-gray-600">
-                <span>Subtotal</span>
-                <span class="font-semibold text-pink-500">
+                        <div class="flex flex-col col-span-3 pt-2">
+                            <span class="text-gray-600 text-md font-semi-bold">{{product.name}}</span>
+                            <span class="text-gray-400 text-sm inline-block pt-2">{{product.category}}</span>
+                        </div>
+                        <div class="col-span-2 pt-3">
+                            <div class="flex items-center space-x-2 text-sm justify-between">
+                                <span class="text-gray-400">1 x {{product.price}}</span>
+                                <span class="text-pink-400 font-semibold inline-block">{{product.price}}</span>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="px-8 border-b">
+                <div class="flex justify-between py-4 text-gray-600">
+                    <span>Subtotal</span>
+                    <span class="font-semibold text-pink-500">
+                        {% if is_cart_checkout %}
+                            ${{ total_price }}
+                        {% else %}
+                            ${{ product.price }}
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="flex justify-between py-4 text-gray-600">
+                    <span>Shipping</span>
+                    <span class="font-semibold text-pink-500">Free</span>
+                </div>
+            </div>
+            <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
+                <span>Total</span>
+                <span>
                     {% if is_cart_checkout %}
                         ${{ total_price }}
                     {% else %}
@@ -176,20 +180,6 @@
                     {% endif %}
                 </span>
             </div>
-            <div class="flex justify-between py-4 text-gray-600">
-                <span>Shipping</span>
-                <span class="font-semibold text-pink-500">Free</span>
-            </div>
-        </div>
-        <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
-            <span>Total</span>
-            <span>
-                {% if is_cart_checkout %}
-                    ${{ total_price }}
-                {% else %}
-                    ${{ product.price }}
-                {% endif %}
-            </span>
         </div>
     </div>
 </div>

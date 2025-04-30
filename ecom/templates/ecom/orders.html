@@ -73,33 +73,47 @@
 </style>
 {% endblock %}
 {% block body %} 
-<div class="flex flex-col items-center">
-    {% for order in user_orders %}
-    <div class="order">
-        <div class="order-details">
-            <div class="image-container">
-                {% with first_product=order.products.first %}
-                    <img src="{{ first_product.image.url }}" alt="{{ first_product.name }}" width="150" height="150" class="rounded-lg object-cover">
-                    {% if order.products.count > 1 %}
-                        <div class="product-count">
-                            +{{ order.products.count|add:"-1" }}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <div class="order-info px-3">
-                <h3>Order #{{ order.id }}</h3>
-                <p>Items: {% for item in order.products.all %} {{ item.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                <p>Total Price : ${{ order.total_price }}</p>
-                <p>Status: {{ order.status }}</p>
-                <a href="{% url 'order_details' order.id %}" class="text-[#4FA49D] hover:text-[#1B365D] mt-2 inline-block">
-                    View Details →
-                </a>
+<div class="bg-gradient-to-r from-[#1B365D] to-[#4FA49D] py-12">
+    <h1 class="text-4xl text-center text-white mb-4">My Orders</h1>
+    <p class="text-center text-gray-100">Track and manage your orders</p>
+</div>
+
+<div class="container mx-auto px-4 py-16">
+    <div class="space-y-6">
+        {% for order in user_orders %}
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-[#1B365D]">Order #{{ order.id }}</h3>
+                    <span class="px-4 py-1 rounded-full text-sm 
+                        {% if order.status == 'Pending' %}bg-yellow-100 text-yellow-800
+                        {% elif order.status == 'Completed' %}bg-green-100 text-green-800
+                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ order.status }}
+                    </span>
+                </div>
+                <div class="order-details">
+                    <div class="image-container">
+                        {% with first_product=order.products.first %}
+                            <img src="{{ first_product.image.url }}" alt="{{ first_product.name }}" width="150" height="150" class="rounded-lg object-cover">
+                            {% if order.products.count > 1 %}
+                                <div class="product-count">
+                                    +{{ order.products.count|add:"-1" }}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="order-info px-3">
+                        <p>Items: {% for item in order.products.all %} {{ item.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                        <p>Total Price : ${{ order.total_price }}</p>
+                        <a href="{% url 'order_details' order.id %}" class="text-[#4FA49D] hover:text-[#1B365D] mt-2 inline-block">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No orders found.</p>
-    {% endfor %}
 </div>
 {% endblock %}

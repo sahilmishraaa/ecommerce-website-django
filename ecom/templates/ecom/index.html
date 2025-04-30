@@ -26,19 +26,26 @@
     <section id="fashion" class="py-16 bg-[#F5F7FA]">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl text-center text-[#1B365D] mb-12">Fashion Collection</h2>
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-3 gap-8">
                 <div class="relative group overflow-hidden rounded-lg">
-                    <img src="{% static './img/form.jpg' %}" alt="Men's Collection" class="w-full transition-transform group-hover:scale-105">
+                    <img src="{% static './img/form.jpg' %}" alt="Men's Collection" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
                         <h3 class="text-2xl text-white">Men's Collection</h3>
                         <a href="/collection/#men" class="text-[#4FA49D] hover:underline">Shop Now →</a>
                     </div>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg">
-                    <img src="{% static './img/trad1.jpg' %}" alt="Women's Collection" class="w-full transition-transform group-hover:scale-105">
+                    <img src="{% static './img/trad1.jpg' %}" alt="Women's Collection" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
                         <h3 class="text-2xl text-white">Women's Collection</h3>
                         <a href="/collection/#women" class="text-[#4FA49D] hover:underline">Shop Now →</a>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/acc.png' %}" alt="Accessories Collection" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">Accessories</h3>
+                        <a href="/collection/#acc" class="text-[#4FA49D] hover:underline">Shop Now →</a>
                     </div>
                 </div>
             </div>
@@ -51,44 +58,32 @@
             <h2 class="text-4xl text-center text-[#1B365D] mb-12">Healthcare Products</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- OTC Medicines Card -->
-                <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i1.png' %}'); filter: brightness(0.3);"></div>
-                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
-                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">💊</div>
-                        <h3 class="text-2xl font-semibold mb-2 text-white">OTC Medicines</h3>
-                        <p class="text-gray-200 mb-6">Quality medicines for common ailments, carefully curated for your wellness</p>
-                        <a href="{% url 'medicine' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
-                            View Products
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        </a>
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/i1.png' %}" alt="OTC Medicines" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">OTC Medicines</h3>
+                        <p class="text-gray-200 mb-3">Quality medicines for common ailments</p>
+                        <a href="{% url 'medicine' %}" class="text-[#4FA49D] hover:underline">Shop Now →</a>
                     </div>
                 </div>
 
                 <!-- First Aid Card -->
-                <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i2.png' %}'); filter: brightness(0.3);"></div>
-                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
-                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🏥</div>
-                        <h3 class="text-2xl font-semibold mb-2 text-white">First Aid</h3>
-                        <p class="text-gray-200 mb-6">Essential first aid supplies for emergency preparedness and care</p>
-                        <a href="{% url 'firstaid' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
-                            View Products
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        </a>
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/i2.png' %}" alt="First Aid" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">First Aid</h3>
+                        <p class="text-gray-200 mb-3">Emergency care essentials</p>
+                        <a href="{% url 'firstaid' %}" class="text-[#4FA49D] hover:underline">Shop Now →</a>
                     </div>
                 </div>
 
                 <!-- Wellness Card -->
-                <div class="relative group overflow-hidden rounded-xl">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static './img/i3.png' %}'); filter: brightness(0.3);"></div>
-                    <div class="bg-gradient-to-t from-[#1B365D]/80 to-transparent relative p-8 h-full min-h-[320px] flex flex-col justify-end transform group-hover:translate-y-[-10px] transition-transform">
-                        <div class="text-[#4FA49D] text-5xl mb-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">🌿</div>
-                        <h3 class="text-2xl font-semibold mb-2 text-white">Wellness</h3>
-                        <p class="text-gray-200 mb-6">Natural supplements and vitamins for holistic health</p>
-                        <a href="{% url 'wellness' %}" class="inline-flex items-center text-white bg-[#4FA49D] hover:bg-[#4FA49D]/80 px-6 py-2 rounded-lg transition-colors group-hover:bg-white group-hover:text-[#1B365D]">
-                            View Products
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        </a>
+                <div class="relative group overflow-hidden rounded-lg">
+                    <img src="{% static './img/i3.png' %}" alt="Wellness" class="w-full h-80 object-cover transition-transform group-hover:scale-105">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1B365D] p-6">
+                        <h3 class="text-2xl text-white">Wellness</h3>
+                        <p class="text-gray-200 mb-3">Natural supplements and vitamins</p>
+                        <a href="{% url 'wellness' %}" class="text-[#4FA49D] hover:underline">Shop Now →</a>
                     </div>
                 </div>
             </div>
